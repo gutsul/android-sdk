@@ -5,9 +5,6 @@ ENV ANDROID_COMPILE_SDK "27"
 ENV ANDROID_BUILD_TOOLS "26.0.2"
 ENV ANDROID_SDK_TOOLS "4333796"
 
-# ENV ANDROID_HOME "/sdk"
-    # PATH "$PATH:${ANDROID_HOME}/tools"\
-
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     wget \
@@ -24,6 +21,10 @@ RUN wget --output-document=sdk.zip https://dl.google.com/android/repository/sdk-
 RUN echo y | sdk/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}"
 RUN echo y | sdk/tools/bin/sdkmanager "platform-tools"
 RUN echo y | sdk/tools/bin/sdkmanager "build-tools;${ANDROID_BUILD_TOOLS}"
+
+ENV ANDROID_HOME="/sdk"
+ENV PATH="$PATH:${ANDROID_HOME}/tools"
+
 
   # - export ANDROID_HOME=$PWD/android-sdk-linux
   # - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
